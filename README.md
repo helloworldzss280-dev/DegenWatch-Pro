@@ -60,7 +60,7 @@ degenwatch/ ├── server.js └── public/ ├── index.html ├──
 pkg update && pkg upgrade
 pkg install nodejs git
 
-git clone <your-repo-link>
+git clone <https://github.com/helloworldzss280-dev/DegenWatch-Pro/tree/main>
 cd degenwatch
 
 npm init -y
