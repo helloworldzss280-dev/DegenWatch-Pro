@@ -1,5 +1,5 @@
 
-![Deskripsi Gambar](images/gambar.png)
+![Deskripsi Gambar](Screenshot_2026_0221_035328.jpg)
 
 
 
