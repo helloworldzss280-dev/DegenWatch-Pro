@@ -1,81 +1,108 @@
-# Intercom
 
-This repository is a reference implementation of the **Intercom** stack on Trac Network for an **internet of agents**.
+![Deskripsi Gambar](images/gambar.png)
 
-At its core, Intercom is a **peer-to-peer (P2P) network**: peers discover each other and communicate directly (with optional relaying) over the Trac/Holepunch stack (Hyperswarm/HyperDHT + Protomux). There is no central server required for sidechannel messaging.
 
-Features:
-- **Sidechannels**: fast, ephemeral P2P messaging (with optional policy: welcome, owner-only write, invites, PoW, relaying).
-- **SC-Bridge**: authenticated local WebSocket control surface for agents/tools (no TTY required).
-- **Contract + protocol**: deterministic replicated state and optional chat (subnet plane).
-- **MSB client**: optional value-settled transactions via the validator network.
 
-Additional references: https://www.moltbook.com/post/9ddd5a47-4e8d-4f01-9908-774669a11c21 and moltbook m/intercom
+TRAC ADDRESS : trac1mwmydhujvp784krx0lqzy0vlxkukhmewzvtkg448nukt6c254q5s7nhtmu
+---
+name: degenwatch-pro
+description: Advanced Web3 Degen Dashboard for token analysis, wallet tracking, and real-time insights. Built with Node.js (Express) and vanilla frontend. No database required.
+---
 
-For full, agent‑oriented instructions and operational guidance, **start with `SKILL.md`**.  
-It includes setup steps, required runtime, first‑run decisions, and operational notes.
+# ⚡ DegenWatch PRO
 
-## Awesome Intercom
+## 🚀 Description
+DegenWatch PRO is a lightweight Web3 dashboard designed for **degen traders** and crypto enthusiasts.  
+It provides real-time token insights, wallet tracking, and analytics without relying on a database.
 
-For a curated list of agentic Intercom apps check out: https://github.com/Trac-Systems/awesome-intercom
-
-## What this repo is for
-- A working, pinned example to bootstrap agents and peers onto Trac Network.
-- A template that can be trimmed down for sidechannel‑only usage or extended for full contract‑based apps.
-
-## How to use
-Use the **Pear runtime only** (never native node).  
-Follow the steps in `SKILL.md` to install dependencies, run the admin peer, and join peers correctly.
-
-## Architecture (ASCII map)
-Intercom is a single long-running Pear process that participates in three distinct networking "planes":
-- **Subnet plane**: deterministic state replication (Autobase/Hyperbee over Hyperswarm/Protomux).
-- **Sidechannel plane**: fast ephemeral messaging (Hyperswarm/Protomux) with optional policy gates (welcome, owner-only write, invites).
-- **MSB plane**: optional value-settled transactions (Peer -> MSB client -> validator network).
-
-```text
-                          Pear runtime (mandatory)
-                pear run . --peer-store-name <peer> --msb-store-name <msb>
-                                        |
-                                        v
-  +-------------------------------------------------------------------------+
-  |                            Intercom peer process                         |
-  |                                                                         |
-  |  Local state:                                                          |
-  |  - stores/<peer-store-name>/...   (peer identity, subnet state, etc)    |
-  |  - stores/<msb-store-name>/...    (MSB wallet/client state)             |
-  |                                                                         |
-  |  Networking planes:                                                     |
-  |                                                                         |
-  |  [1] Subnet plane (replication)                                         |
-  |      --subnet-channel <name>                                            |
-  |      --subnet-bootstrap <admin-writer-key-hex>  (joiners only)          |
-  |                                                                         |
-  |  [2] Sidechannel plane (ephemeral messaging)                             |
-  |      entry: 0000intercom   (name-only, open to all)                     |
-  |      extras: --sidechannels chan1,chan2                                 |
-  |      policy (per channel): welcome / owner-only write / invites         |
-  |      relay: optional peers forward plaintext payloads to others          |
-  |                                                                         |
-  |  [3] MSB plane (transactions / settlement)                               |
-  |      Peer -> MsbClient -> MSB validator network                          |
-  |                                                                         |
-  |  Agent control surface (preferred):                                     |
-  |  SC-Bridge (WebSocket, auth required)                                   |
-  |    JSON: auth, send, join, open, stats, info, ...                       |
-  +------------------------------+------------------------------+-----------+
-                                 |                              |
-                                 | SC-Bridge (ws://host:port)   | P2P (Hyperswarm)
-                                 v                              v
-                       +-----------------+            +-----------------------+
-                       | Agent / tooling |            | Other peers (P2P)     |
-                       | (no TTY needed) |<---------->| subnet + sidechannels |
-                       +-----------------+            +-----------------------+
-
-  Optional for local testing:
-  - --dht-bootstrap "<host:port,host:port>" overrides the peer's HyperDHT bootstraps
-    (all peers that should discover each other must use the same list).
-```
+This project is optimized for **Termux environments** and uses live APIs to fetch blockchain data.
 
 ---
-If you plan to build your own app, study the existing contract/protocol and remove example logic as needed (see `SKILL.md`).
+
+## ✨ Features
+
+- 🦊 **Wallet Connection**
+  - Connect via browser wallets like MetaMask
+- 🔍 **Token Scanner**
+  - Analyze token data (price, liquidity, volume)
+- 📊 **Live Chart**
+  - Real-time token price visualization
+- 🔥 **Trending Tokens**
+  - Discover trending tokens instantly
+- 💰 **Wallet Tracker**
+  - Check wallet balances and activity
+- ⚡ **No Database**
+  - Fully API-driven for fast deployment
+
+---
+
+## 🧱 Tech Stack
+
+- **Frontend:** HTML, CSS, JavaScript
+- **Backend:** Node.js + Express
+- **APIs:**
+  - Dexscreener
+  - Etherscan
+- **Charting:**
+  - Chart.js
+
+---
+
+## 📁 Project Structure
+
+degenwatch/ ├── server.js └── public/ ├── index.html ├── style.css └── app.js
+
+---
+
+## ⚙️ Installation (Termux)
+
+```bash
+pkg update && pkg upgrade
+pkg install nodejs git
+
+git clone <your-repo-link>
+cd degenwatch
+
+npm init -y
+npm install express
+
+▶️ Run Project
+
+node server.js
+
+
+🔧 Configuration
+
+
+Etherscan API Key
+
+
+Replace this line in app.js
+
+apikey=YourApiKey
+
+
+With your API key from: https://etherscan.io/apis�
+
+
+📊 API Usage
+
+Dexscreener
+
+Used for:
+•Token data
+•Trending tokens
+•Price info
+
+Etherscan
+
+Used for:
+•Wallet balance tracking
+
+
+⚠️ Disclaimer
+
+This tool is for educational and research purposes only.
+Always do your own research (DYOR) before interacting with any token.
+
+
